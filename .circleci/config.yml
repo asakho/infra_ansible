@@ -7,16 +7,17 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["02:f1:82:94:c2:69:4d:65:9f:4d:80:59:71:37:60:59"]
+          fingerprints: ["02:f1:82:94:c2:69:4d:65:9f:4d:80:59:71:37:60:59"] # You can get this ID in the section where you registered the SSH Key
       - run:
           name: Install dependencies
           command: |
-            apk add --update ansible
+            apk add --update ansible # install the dependencies needed for your playbook
       - run:
           name: Configure server
-          commandd: |
+          command: |
             ansible-playbook -i inventory.txt main-remote.yml
+
 workflows:
   my_workflow:
     jobs:
-      - configure_infrastructure
+      - configure_infrastructure    
