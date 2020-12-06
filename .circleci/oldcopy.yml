@@ -1,0 +1,19 @@
+version: 2.1
+
+jobs:
+  create_infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Ensure backend infrastructure exist
+          command: |
+            aws cloudformation create-stack \
+              --template-body file://infra.yml \
+              --parameters file://infra_param.json \
+              --stack-name my-stack
+workflows:
+  my_workflow:
+    jobs:
+      - create_infrastructure
